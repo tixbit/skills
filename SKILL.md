@@ -1,6 +1,6 @@
 ---
 name: tixbit
-description: Use the official TixBit SDK/CLI to search events, browse by location, inspect listings, view seatmaps, and generate checkout links. Trigger when a user asks to find tickets, compare sections/prices, or create a TixBit checkout URL.
+description: Find the cheapest live event tickets on TixBit in seconds — search sports and concerts, compare listings and seatmaps, and generate instant checkout links.
 ---
 
 # TixBit Skill
