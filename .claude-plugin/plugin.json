@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "tixbit",
+  "displayName": "TixBit",
+  "version": "1.0.0",
+  "description": "Search TixBit events, compare all-in listings and seatmaps, and prepare budget-checked checkout through the official CLI. Never fees for buyers. Skills-only; no MCP.",
+  "author": {
+    "name": "TixBit",
+    "email": "zach@tixbit.com",
+    "url": "https://www.tixbit.com"
+  },
+  "homepage": "https://www.tixbit.com",
+  "repository": "https://github.com/tixbit/skills",
+  "license": "MIT",
+  "keywords": [
+    "tickets",
+    "events",
+    "sports",
+    "concerts",
+    "checkout",
+    "tixbit"
+  ]
+}
