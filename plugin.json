@@ -18,5 +18,41 @@
     "concerts",
     "checkout",
     "tixbit"
-  ]
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "TixBit",
+        "shortDescription": "All-in tickets, budget-checked",
+        "longDescription": "Search live events on TixBit, compare all-in listing totals and seatmaps, and prepare budget-checked checkout through the official CLI. Never fees for buyers. Browser checkout returns a link; payment stays with the user unless they explicitly approve a --max-price Link buy or MPP purchase.",
+        "developerName": "TixBit",
+        "category": "Lifestyle",
+        "capabilities": [
+          "Search live events",
+          "Compare all-in ticket listings",
+          "View seatmaps",
+          "Prepare budget-checked checkout"
+        ],
+        "websiteURL": "https://www.tixbit.com",
+        "supportURL": "https://www.tixbit.com/support",
+        "privacyPolicyURL": "https://www.tixbit.com/privacy",
+        "termsOfServiceURL": "https://www.tixbit.com/terms",
+        "defaultPrompt": [
+          "Find Braves games in Atlanta and compare all-in listing totals for two tickets.",
+          "Show the seatmap and budget-checked checkout options for this TixBit event.",
+          "Prepare a TixBit checkout link for this listing; do not pay without my approval."
+        ],
+        "brandColor": "#0A0A0A",
+        "brandColorDark": "#FFFFFF",
+        "composerIcon": "./assets/icon.png",
+        "composerIconDark": "./assets/icon-dark.png",
+        "logo": "./assets/logo.png",
+        "logoDark": "./assets/logo-dark.png"
+      },
+      "onboardingSkill": "./skills/tixbit/SKILL.md",
+      "publication": {
+        "release_notes": "Initial skills-only release: search events, compare all-in listings, seatmaps, and budget-checked checkout via the official TixBit CLI. Never fees for buyers."
+      }
+    }
+  }
 }
