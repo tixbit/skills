@@ -2,7 +2,7 @@
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "tixbit",
   "version": "1.0.0",
-  "description": "Search TixBit events, compare all-in listings and seatmaps, and prepare budget-checked checkout through the official CLI. Never fees for buyers. Skills-only; no MCP.",
+  "description": "Search TixBit events, compare all-in listings and seatmaps, and prepare budget-checked checkout through the official CLI. No fees for buyers. Skills-only; no MCP.",
   "author": {
     "name": "TixBit",
     "email": "zach@tixbit.com",
@@ -24,7 +24,7 @@
       "interface": {
         "displayName": "TixBit",
         "shortDescription": "All-in tickets, budget-checked",
-        "longDescription": "Search live events on TixBit, compare all-in listing totals and seatmaps, and prepare budget-checked checkout through the official CLI. Never fees for buyers. Browser checkout returns a link; payment stays with the user unless they explicitly approve a --max-price Link buy or MPP purchase.",
+        "longDescription": "Search live events on TixBit, compare all-in listing totals and seatmaps, and prepare budget-checked checkout through the official CLI. No fees for buyers. Browser checkout returns a link; payment stays with the user unless they explicitly approve a --max-price Link buy or MPP purchase.",
         "developerName": "TixBit",
         "category": "Lifestyle",
         "capabilities": [
@@ -51,7 +51,7 @@
       },
       "onboardingSkill": "./skills/tixbit/SKILL.md",
       "publication": {
-        "release_notes": "Initial skills-only release: search events, compare all-in listings, seatmaps, and budget-checked checkout via the official TixBit CLI. Never fees for buyers."
+        "release_notes": "Initial skills-only release: search events, compare all-in listings, seatmaps, and budget-checked checkout via the official TixBit CLI. No fees for buyers."
       }
     }
   }
