@@ -8,6 +8,7 @@ Confirm the package still matches this tree before you upload or share the GitHu
 .claude-plugin/plugin.json
 plugin.json
 skills/tixbit/SKILL.md
+skills/tixbit-selling/
 README.md
 SUBMISSION.md
 LICENSE
@@ -52,7 +53,7 @@ Docs:
 
 Portal:
 
-- [Create plugin (OpenAI Platform)](https://platform.openai.com/plugins/create) — choose **Create plugin** → **Skills only**
+- [Create plugin (OpenAI Platform)](https://platform.openai.com/plugins/create): choose **Create plugin** → **Skills only**
 
 ChatGPT / Codex directory (after publish):
 
@@ -80,7 +81,7 @@ Use these in the portal. They are not MCP marketing.
 | --- | --- |
 | Plugin / display name | `TixBit` (≤30 characters) |
 | Short description | `All-in tickets, budget-checked` (≤30 characters) |
-| Long description | Search live events on TixBit, compare all-in listing totals and seatmaps, and prepare budget-checked checkout through the official CLI. Never fees for buyers. Browser checkout returns a link; payment stays with the user unless they explicitly approve a `--max-price` Link buy or MPP purchase. |
+| Long description | Search live events on TixBit, compare all-in listing totals and seatmaps, and prepare budget-checked checkout through the official CLI. No fees for buyers. Browser checkout returns a link; payment stays with the user unless they explicitly approve a `--max-price` Link buy or MPP purchase. |
 | Website | `https://www.tixbit.com` |
 | Support | `https://www.tixbit.com/support` |
 | Category | Productivity or Lifestyle (pick the portal option that fits live events) |
@@ -111,7 +112,7 @@ Negative (need 3):
 
 Keep:
 
-- Never fees for buyers
+- No fees for buyers
 - All-in prices / all-in totals
 - Budget-checked checkout with `--max-price`
 - The full public CLI story from [https://www.tixbit.com/SKILL.md](https://www.tixbit.com/SKILL.md)

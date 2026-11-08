@@ -1,8 +1,30 @@
-# TixBit Skills Plugin
+# TixBit Skills
+
+[![skills.sh](https://skills.sh/b/tixbit/skills)](https://skills.sh/tixbit/skills)
+
+Agent skills for [TixBit](https://www.tixbit.com): find and buy live-event tickets, and manage your own seller listings, through the official `tixbit` CLI. No fees for buyers.
+
+## Install
+
+With the [skills](https://skills.sh/tixbit/skills) CLI (Claude Code, Codex, Cursor and other agents):
+
+```sh
+npx skills add tixbit/skills
+```
+
+In Claude Code, after directory publication:
+
+```text
+/plugin install tixbit@claude-plugins-official
+```
+
+More install paths are below. Agent docs: [https://www.tixbit.com/agents](https://www.tixbit.com/agents)
+
+## About this repository
 
 Skills-only TixBit plugin for the [Claude plugin directory](https://claude.com/docs/plugins/submit) and the [OpenAI ChatGPT/Codex Plugins Directory](https://developers.openai.com/plugins/deploy/submission).
 
-This package teaches an agent to search live events on TixBit, compare all-in listing prices and seatmaps, and prepare budget-checked checkout through the official `tixbit` CLI. **Never fees for buyers.** There is no MCP server in this repository.
+This is the canonical home of the TixBit agent skills. There is no MCP server in this repository.
 
 Canonical public skill copy: [https://www.tixbit.com/SKILL.md](https://www.tixbit.com/SKILL.md)
 
@@ -12,32 +34,35 @@ Canonical public skill copy: [https://www.tixbit.com/SKILL.md](https://www.tixbi
 .
 ├── .claude-plugin/plugin.json   # Claude Code / Claude plugin directory manifest
 ├── plugin.json                  # OpenAI portable Agent Plugins manifest
-├── skills/tixbit/SKILL.md       # The skill
+├── skills/tixbit/SKILL.md       # Buyer skill
+├── skills/tixbit-selling/       # Seller skill, references and agent metadata
 ├── README.md
 ├── SUBMISSION.md
 └── LICENSE
 ```
 
-## What the skill does
+## What the skills do
 
-- Search sports and concert events
-- Compare all-in listing prices, quantities, and seatmaps
+`tixbit` (buyer):
+
+- Search sports, concert and theater events
+- Compare listing prices, quantities, and seatmaps
+- Refresh listings with `quote`
 - Generate browser checkout links (the user pays in the browser)
-- When the installed CLI supports them, quote inventory, start a budget-checked Link buy with `--max-price`, or run a guarded MPP purchase after explicit consent
+- Start a capped Stripe Link purchase with `link start --max-price` and finish it with `link complete`, only after the buyer approves the exact ticket and cap
+- Run a guarded MPP `purchase` after explicit consent
 
-This skill does not authorize purchases or seller submissions by itself. Setup is not payment consent.
+`tixbit-selling` (seller):
+
+- Sign in through browser OAuth, then create, reprice, check and delist your own listings, each through a saved review the owner approves
+
+The skills do not authorize purchases or seller submissions by themselves. Setup is not payment consent.
 
 ## Claude
 
 ### Install after directory publication
 
-Once the plugin is listed, install it from Claude Code or Cowork:
-
-```text
-/plugin install tixbit@claude-plugins-official
-```
-
-If it is published to the community directory instead of the official marketplace, use that marketplace name in place of `claude-plugins-official`. Browse plugins at [claude.com/plugins](https://claude.com/plugins).
+Once the plugin is listed, install it from Claude Code or Cowork with the `/plugin install` line above. If it is published to the community directory instead of the official marketplace, use that marketplace name in place of `claude-plugins-official`. Browse plugins at [claude.com/plugins](https://claude.com/plugins).
 
 ### Local install and test
 
@@ -48,18 +73,18 @@ claude plugin validate .
 claude --plugin-dir .
 ```
 
-You can also copy the skill into a personal or project skills folder:
+You can also copy the skills into a personal or project skills folder:
 
 ```sh
 mkdir -p ~/.claude/skills
-cp -R skills/tixbit ~/.claude/skills/tixbit
+cp -R skills/tixbit skills/tixbit-selling ~/.claude/skills/
 ```
 
 Project-scoped copy:
 
 ```sh
 mkdir -p .claude/skills
-cp -R skills/tixbit .claude/skills/tixbit
+cp -R skills/tixbit skills/tixbit-selling .claude/skills/
 ```
 
 ## OpenAI ChatGPT and Codex
@@ -72,16 +97,16 @@ In ChatGPT or Codex, open the Plugins Directory, find **TixBit**, and install it
 
 ### Local / workspace install
 
-Copy the skill folder into a discovered skills location:
+`npx skills add tixbit/skills` works for Codex too. To copy by hand:
 
 ```sh
 # Codex user skills
 mkdir -p ~/.codex/skills
-cp -R skills/tixbit ~/.codex/skills/tixbit
+cp -R skills/tixbit skills/tixbit-selling ~/.codex/skills/
 
 # Repo-scoped Codex / ChatGPT Work discovery
 mkdir -p .agents/skills
-cp -R skills/tixbit .agents/skills/tixbit
+cp -R skills/tixbit skills/tixbit-selling .agents/skills/
 ```
 
 You can also add this folder to a local marketplace with `@plugin-creator` in ChatGPT Work or `$plugin-creator` in Codex, then install it from that marketplace.
@@ -92,29 +117,33 @@ In ChatGPT: **Plugins → Skills → Create → Upload from your computer**, and
 
 ## CLI
 
-Requires Node.js 22.12 or later. No developer API key is required for public search, listings, seatmaps, or browser checkout.
+Requires Node.js 22.12 or later and `tixbit@0.3.1` or later. Older releases can report a paid Link order as rejected; do not use them for purchases. No developer API key is required for public search, listings, seatmaps, quotes, or browser checkout.
 
 ```sh
-npx tixbit --help
-npx tixbit search "Braves" --city Atlanta --state GA --size 10 --json
-npx tixbit listings "$EVENT_ID" --size 10 --sort asc --json
-npx tixbit seatmap "$EVENT_ID" --json
-npx tixbit checkout "$LISTING_ID" --quantity 2 --json
+npx tixbit@latest --help
+npx tixbit@latest search "Braves" --city Atlanta --state GA --size 10 --json
+npx tixbit@latest listings "$EVENT_ID" --size 10 --sort asc --json
+npx tixbit@latest seatmap "$EVENT_ID" --json
+npx tixbit@latest quote "$EVENT_ID" --json
+npx tixbit@latest checkout "$LISTING_ID" --quantity 2 --json
 ```
 
-When the installed build advertises them, budget-checked payment commands use `--max-price` for the entire order in USD:
+A Stripe Link purchase takes a `--max-price` cap for the whole order in USD, and only after the buyer approves that exact cap:
 
 ```sh
-npx tixbit buy "$LISTING_ID" --quantity 2 --max-price 250 --email buyer@example.com --json
+npx tixbit@latest link start "$LISTING_ID" --quantity 2 --email buyer@example.com --max-price 250
+npx tixbit@latest link complete "$ORDER_REFERENCE"
 ```
 
-Check each command's `--help` before use. Quote, auth, Link buy, sell, and stricter MPP payment flags are pending release unless the installed package advertises them.
+Check each command's `--help` before use.
 
-Full agent instructions: [`skills/tixbit/SKILL.md`](./skills/tixbit/SKILL.md).
+Full agent instructions: [`skills/tixbit/SKILL.md`](./skills/tixbit/SKILL.md) and [`skills/tixbit-selling/SKILL.md`](./skills/tixbit-selling/SKILL.md).
 
 ## Links
 
 - Product: [https://www.tixbit.com](https://www.tixbit.com)
+- Agents: [https://www.tixbit.com/agents](https://www.tixbit.com/agents)
+- skills.sh: [https://skills.sh/tixbit/skills](https://skills.sh/tixbit/skills)
 - Public skill: [https://www.tixbit.com/SKILL.md](https://www.tixbit.com/SKILL.md)
 - SDK / CLI: [https://github.com/tixbit/sdk](https://github.com/tixbit/sdk)
 - Buyer help: [https://www.tixbit.com/support](https://www.tixbit.com/support)

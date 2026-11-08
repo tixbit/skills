@@ -3,7 +3,7 @@
   "name": "tixbit",
   "displayName": "TixBit",
   "version": "1.0.0",
-  "description": "Search TixBit events, compare all-in listings and seatmaps, and prepare budget-checked checkout through the official CLI. Never fees for buyers. Skills-only; no MCP.",
+  "description": "Search TixBit events, compare all-in listings and seatmaps, and prepare budget-checked checkout through the official CLI. No fees for buyers. Skills-only; no MCP.",
   "author": {
     "name": "TixBit",
     "email": "zach@tixbit.com",
